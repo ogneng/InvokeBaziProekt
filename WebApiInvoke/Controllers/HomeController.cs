@@ -19,9 +19,5 @@ namespace WebApiInvoke.Controllers
         {
             return View();
         }
-        public ActionResult Users()
-        {
-            return View();
-        }
     }
 }
