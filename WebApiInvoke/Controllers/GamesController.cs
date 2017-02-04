@@ -258,15 +258,32 @@ namespace WebApiInvoke.Controllers
    
                     return Ok("Added game");
                 }
-            }
+           }
         
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Games/5
-        public void Delete(int id)
+        // DELETE: api/Games/gamesname
+        public IHttpActionResult Delete(String gamesname)
         {
+            using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    // Insert some data
+                    cmd.CommandText = "DELETE FROM  invoke.games " +
+                                "WHERE gamesname = ''"; //+
+                         //  $"VALUES('{igra.Name}','{igra.Description}',{igra.Price},'{igra.Date}','{igra.Developer}','{igra.Genre}');";
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                return Ok("Deletetd game");
+            }
         }
     }
 }

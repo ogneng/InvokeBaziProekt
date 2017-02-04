@@ -23,5 +23,13 @@ namespace WebApiInvoke.Controllers
         {
             return View();
         }
+        public ActionResult Items()
+        {
+            return View();
+        }
+        public ActionResult Forums()
+        {
+            return View();
+        }
     }
 }

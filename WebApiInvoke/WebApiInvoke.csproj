@@ -193,15 +193,36 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ForumsController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Achievements.cs" />
+    <Compile Include="Models\Admins.cs" />
+    <Compile Include="Models\BoughtGames.cs" />
     <Compile Include="Models\ClientHelperClass.cs" />
+    <Compile Include="Models\Comments.cs" />
+    <Compile Include="Models\Costomers.cs" />
+    <Compile Include="Models\CreditCards.cs" />
+    <Compile Include="Models\EarnedAchievements.cs" />
+    <Compile Include="Models\Forums.cs" />
+    <Compile Include="Models\Friendship.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Inventorys.cs" />
+    <Compile Include="Models\ItemArtist.cs" />
+    <Compile Include="Models\Items.cs" />
+    <Compile Include="Models\PurchaseGames.cs" />
+    <Compile Include="Models\PurchaseItems.cs" />
+    <Compile Include="Models\SellingItems.cs" />
+    <Compile Include="Models\SetsGames.cs" />
+    <Compile Include="Models\Topics.cs" />
     <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\VoteForItem.cs" />
+    <Compile Include="Models\Workshops.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +279,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\GetAllGames.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />
+    <Content Include="Views\Home\Items.cshtml" />
+    <Content Include="Views\Home\Forums.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

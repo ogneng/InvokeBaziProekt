@@ -68,7 +68,14 @@ namespace WebApiInvoke.Controllers
                     cmd.Connection = conn;
 
                     // Insert some data
-                
+                    /* *Igor*
+                     * if we want to include userid..
+                     *    cmd.CommandText = "INSERT INTO invoke.users " +
+                                "(userid,username,userspassword,usersemail,userscountry,usersgender) " +
+                                $"VALUES('user.UserID = *','{user.UserName}','{user.Password}','{user.Email}','{user.Country}','{user.Gender}');";
+                     * because we have nextval('users_usersid_seq'::regclass) in DataBase we dont need to include
+                     * userid the DB know that he need to add the sequence
+                     */
                     cmd.CommandText = "INSERT INTO invoke.users " +
                                 "(username,userspassword,usersemail,userscountry,usersgender) " +
                            $"VALUES('{user.UserName}','{user.Password}','{user.Email}','{user.Country}','{user.Gender}');";
