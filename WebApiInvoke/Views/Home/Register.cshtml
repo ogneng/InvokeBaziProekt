@@ -1,0 +1,241 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @*<link rel="stylesheet" href="/css/bootstrap.min.css">*@
+    @*<script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/loginRegulator.js"></script>
+        <script type="text/javascript" src="js/form_validator.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/form_validator.js"></script>
+    <script type="text/javascript" src="~/Scripts/loginRegulator.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function(){
+                $("div#userce").hide();
+
+                $("input[name=showHide]").on("click",function(){
+                    var selectedValue = $("input[name=showHide]:checked").val();
+
+                    if (selectedValue == "Show") {
+                        $("div#userce").show();
+
+                    }
+                    else if (selectedValue == "Hide") {
+                        $("div#userce").hide();
+                    }
+                });
+                });
+    </script>
+
+</head>
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Desc</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+
+        </table>
+    </div>
+
+    <body>
+        <style>
+            .hidden {
+                display: none;
+            }
+
+            .error {
+                border: 1px solid red;
+                -webkit-transition: border 500ms ease-out;
+                -moz-transition: border 500ms ease-out;
+                -o-transition: border 500ms ease-out;
+                transition: border 500ms ease-out;
+            }
+
+            label {
+                padding-top: 5px;
+            }
+
+            form {
+            }
+
+            .login_fail h2 {
+                x padding: 15px;
+            }
+
+            .mandatory {
+                color: red;
+            }
+        </style>
+
+        <div class="container" style="width:40%;margin-top:10%;">
+            <div class="login_fail alert-danger">
+            </div>
+            <form class="well visible" id="signUpForm" method="POST" action="/signUp">
+
+                <div class="row form-group">
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                        <label for="userName"><span class="mandatory">*</span> Username : </label>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                        <input class=" form-control" type="text" id="userName" placeholder="Username">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                        <label for="userEmail">Email </label>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                        <input class="form-control" type='text' id="userEmail" placeholder="someone@somewhere.com">
+                    </div>
+                </div>
+                <div class=" row form-group ">
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 ">
+                        <label for="userPassword"><span class="mandatory">*</span> Password : </label>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 ">
+                        <input class="form-control " type="password" id="userPassword" placeholder="Password">
+                    </div>
+                </div>
+
+                <div class=" row form-group ">
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 ">
+                        <label for="userCountry"><span class="mandatory">*</span> Country : </label>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 ">
+                        <input class="form-control " type="text" id="userCountry" placeholder="Country">
+                    </div>
+                </div>
+
+                <div class=" row form-group ">
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 ">
+                        <label for="userGender"><span class="mandatory">*</span> Gender : </label>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 ">
+                        <input class="form-control " type="text" id="userGender" placeholder="Gender">
+                    </div>
+                </div>
+
+                <div class="row form-group ">
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 ">
+                        <label><span class="mandatory">*</span> Type of user :  </label>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 ">
+
+                        <input type="radio" name="showHide" id="customer" value="Hide">Customer
+                        <input type="radio" name="showHide" id="itemArtist" value="Show">Item Artist
+
+
+                    </div>
+                </div>
+
+                <div class=" row form-group " id="userce">
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 ">
+                        <label for="name"><span class="mandatory">*</span> Name : </label>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 ">
+                        <input class="form-control " type="text" id="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class=" row form-group " id="userce">
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 ">
+                        <label for="surname"><span class="mandatory">*</span> Surname : </label>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 ">
+                        <input class="form-control " type="text" id="surname" placeholder="Surname">
+                    </div>
+                </div>
+
+
+                <div class="row form-group">
+
+                    <div class="col-md-offset-1 col-md-5 col-lg-offset-1 col-lg-5 col-sm-12 col-xs-12" style="float:right">
+                        <button type="button" class="btn btn-success" id="addUser">
+                            Sign up
+                        </button>
+                    </div>
+                </div>
+
+
+
+        </div>
+
+
+    </body>
+
+</html>
+
+
+@section scripts{
+    <script>
+
+        $(function () {
+            $.get("/api/Users", function (data) {
+                console.log(data);
+
+                var tableBody = $("#tableBody");
+
+                $.each(data, function (index, value) {
+                    var tr = $("<tr></tr>");
+
+                    var td = $("<td >" + value.UserName + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.Email + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.Password + " </td>");
+                    tr.append(td);
+
+                    tableBody.append(tr);
+
+                });
+
+            });
+
+
+                $("#addUser").on("click", function () {
+                    if ($("input[name=showHide]:checked").val() == "Hide") {
+                        var user = {};
+                        user.UserName = $("#userName").val();
+                        user.Email = $("#userEmail").val();
+                        user.Password = $("#userPassword").val();
+                        user.Country = $("#userCountry").val();
+                        user.Gender = $("#userGender").val();
+                        console.log(user);
+                    }
+                    else if (($("input[name=showHide]:checked").val() == "Show")) {
+                        var user = {};
+                        user.UserName = $("#userName").val();
+                        user.Email = $("#userEmail").val();
+                        user.Password = $("#userPassword").val();
+                        user.Country = $("#userCountry").val();
+                        user.Gender = $("#userGender").val();
+                        user.Name = $("#name").val();
+                        user.Surname = $("#surname").val();
+                        console.log(user);
+                    }
+
+                    $.post("/api/Users", user, function (data) {
+                        console.log(data);
+                        location.reload();
+                    });
+
+                })
+        });
+
+    </script>
+
+}

@@ -13,9 +13,9 @@ namespace WebApiInvoke.Controllers
     public class UsersController : ApiController
     {
         // GET: api/Users
-        public List<Users> Get()
+        public string Get(loginuser loginuser)
         {
-            List<Users> UsersList = new List<Users>();
+
 
             using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
             {
@@ -24,31 +24,21 @@ namespace WebApiInvoke.Controllers
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT * from invoke.Users";
+                    cmd.CommandText = "SELECT users.username from invoke.Users"
+                        +"where users.username ='"+loginuser.UserName+"' and users.userspassword = '"+loginuser.Password+"' ";
 
+                    NpgsqlDataReader reader = cmd.ExecuteReader();
 
-
-                    using (var reader = cmd.ExecuteReader())
+                    if (reader.HasRows)
                     {
-
-                        while (reader.Read())
-                        {
-                            Users user = new Users();
-                            user.UserID = reader.GetInt64(0);
-                            user.UserName = reader.GetString(1);
-                            user.Password = reader.GetString(2);
-                            user.Email = reader.GetString(3);
-                            user.Country = reader.GetString(5);
-                            user.Gender = reader.GetString(5);
-
-                            UsersList.Add(user);
-
-                        }
-
+                        return loginuser.UserName;
+                    }
+                    else {
+                        return "nema";
                     }
                 }
             }
-            return UsersList;
+            
         }
 
         // GET: api/Users/5

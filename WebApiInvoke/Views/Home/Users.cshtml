@@ -1,9 +1,42 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Users";
 }
 
-<div class="row">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @*<link rel="stylesheet" href="/css/bootstrap.min.css">*@
+    @*<script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/loginRegulator.js"></script>
+        <script type="text/javascript" src="js/form_validator.js"></script>*@
+    @*@  <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/form_validator.js"></script>
+        <script type="text/javascript" src="~/Scripts/loginRegulator.js"></script>
+
+
+
+        <script type="text/javascript">
+                $(document).ready(function(){
+                    $("div#userce").hide();
+
+                    $("input[name=showHide]").on("click",function(){
+                        var selectedValue = $("input[name=showHide]:checked").val();
+
+                        if (selectedValue == "Show") {
+                            $("div#userce").show();
+
+                        }
+                        else if (selectedValue == "Hide") {
+                            $("div#userce").hide();
+                        }
+                    });
+                    });
+        </script>*@
+
+</head>
+@*@<div class="row">
     <div class="col-md-8">
         <table class="table">
             <thead>
@@ -17,106 +50,112 @@
             <tbody id="tableBody"></tbody>
 
         </table>
-    </div>
+    </div>*@
 
-    <div class="col-md-4">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="userName" class="col-sm-2 control-label">UserName</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="userName" placeholder="User Name">
+<body>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .error {
+            border: 1px solid red;
+            -webkit-transition: border 500ms ease-out;
+            -moz-transition: border 500ms ease-out;
+            -o-transition: border 500ms ease-out;
+            transition: border 500ms ease-out;
+        }
+
+        label {
+            padding-top: 5px;
+        }
+
+        form {
+        }
+
+        .login_fail h2 {
+            x padding: 15px;
+        }
+
+        .mandatory {
+            color: red;
+        }
+    </style>
+
+    <div class="container" style="width:40%;margin-top:10%;">
+        <div class="login_fail alert-danger">
+        </div>
+        <form class="well visible" id="loginForm" method="POST">
+
+            <div class="row form-group">
+                <label for="#username" id="username-label" class="col-md-3 col-lg-3 col-sm-12 col-xs-12 col-form-label">Username</label>
+                <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12">
+                    <input type="text" id="username" class="form-control" placeholder="Username">
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="userEmail" class="col-sm-2 control-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="userEmail" placeholder="Email">
+            <div class="row form-group">
+                <label for="#password" id="password-label" class="col-md-3 col-lg-3 col-sm-12 col-xs-12 col-form-label">Password</label>
+                <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12">
+                    <input type="password" id="Password" class="form-control" placeholder="Password">
                 </div>
             </div>
+            <div class="row form-group">
+                <form>
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                        <button type="submit" class="btn btn-block " id="login">
+                            Login
+                        </button>
+                    </div>
 
-            <div class="form-group">
-                <label for="userPassword" class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="userPassword" placeholder="Password">
-                </div>
-            </div>
+                </form>
+                <form action="/Home/Register">
 
-            <div class="form-group">
-                <label for="userCountry" class="col-sm-2 control-label">Country</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="userCountry" placeholder="Country">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="userGender" class="col-sm-2 control-label">Gender</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="userGender" placeholder="Gender">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" id="addUser" class="btn btn-success">Add</button>
-                </div>
+                    <div class="col-md-offset-1 col-md-5 col-lg-offset-1 col-lg-5 col-sm-12 col-xs-12">
+                        <button class="btn btn-block" id="showSignUp">
+                            Sign up
+                        </button>
+                    </div>
+                </form>
             </div>
         </form>
 
     </div>
 
-</div>
 
+</body>
 
-
+</html>
 
 
 @section scripts{
-    <script>
+     <script>
 
-            $(function () {
-                $.get("/api/Users", function (data) {
-                    console.log(data);
-
-                    var tableBody = $("#tableBody");
-
-                    $.each(data, function (index, value) {
-                        var tr = $("<tr></tr>");
-
-                        var td = $("<td >" + value.UserName + " </td>");
-                        tr.append(td);
-
-                        td = $("<td >" + value.Email + " </td>");
-                        tr.append(td);
-
-                        td = $("<td >" + value.Password + " </td>");
-                        tr.append(td);
-
-                        tableBody.append(tr);
-
-                    });
-
-                });
+         $(function () {
 
 
-                $("#addUser").on("click", function () {
-                    var user = {};
-                    user.UserName = $("#userName").val();
-                    user.Email = $("#userEmail").val();
-                    user.Password = $("#userPassword").val();
-                    user.Country = $("#userCountry").val();
-                    user.Gender = $("#userGender").val();
-                    console.log(user);
 
-                    $.post("/api/Users", user , function (data) {
-                        console.log(data);
-                        location.reload();
-                    });
+             $("#login").on("click", function () {
 
-                })
-            });
 
-    </script>
+                 var loginuser = {};
+                 loginuser.Username = $("#Username").val();
+                 loginuser.Password = $("#Password").val();
+
+                 console.log(loginuser + "asd");
+
+                 $.get("/api/Users", loginuser, function (data) {
+
+                     $("#user").append(data);
+                     console.log(data);
+                     location.reload();
+                 });
+
+             })
+
+
+         });
+
+
+        </script>
 
 }
-
