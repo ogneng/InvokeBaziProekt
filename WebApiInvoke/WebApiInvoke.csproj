@@ -193,12 +193,19 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AchievmentsController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\CreditCardController.cs" />
     <Compile Include="Controllers\ForumsController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\SetsGamesController.cs" />
+    <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WorkshopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -284,6 +291,13 @@
     <Content Include="Views\Home\Items.cshtml" />
     <Content Include="Views\Home\Forums.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Achievments.cshtml" />
+    <Content Include="Views\Home\Admins.cshtml" />
+    <Content Include="Views\Home\Comments.cshtml" />
+    <Content Include="Views\Home\CreditCard.cshtml" />
+    <Content Include="Views\Home\SetsGames.cshtml" />
+    <Content Include="Views\Home\Topics.cshtml" />
+    <Content Include="Views\Home\Workshop.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

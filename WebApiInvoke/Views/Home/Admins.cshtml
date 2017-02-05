@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "Admins";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Admin username</th>
+                    <th>Admin name</th>
+                    <th>Admin surname</th>
+                    <th>Admin phone</th>
+
+                </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+
+        </table>
+    </div>
+
+    <div class="col-md-4">
+        <form class="form-horizontal">
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Admin username</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="ausername" placeholder="Admin username">
+                </div>
+            </div>
+
+
+      
+    <div class="form-group">
+        <label for="achTitle" class="col-sm-2 control-label">Admin name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="aname" placeholder="Admin name">
+        </div>
+    </div>
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Admin surname</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="asurname" placeholder="Admin surname">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Admin phone</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="aphone" placeholder="Admin phone">
+                </div>
+            </div>
+
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="addAdmin" class="btn btn-success">Add</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+</div>
+
+
+
+
+
+@section scripts{
+    <script>
+
+        $(function () {
+            $.get("/api/Admins", function (data) {
+                console.log(data);
+
+                var tableBody = $("#tableBody");
+
+                $.each(data, function (index, value) {
+                    var tr = $("<tr></tr>");
+
+                    var td = $("<td >" + value.AdminUserName + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.AdminName + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.AdminSurName + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.Phone + " </td>");
+                    tr.append(td);
+
+
+                    tableBody.append(tr);
+
+                });
+
+            });
+
+
+            $("#addAdmin").on("click", function () {
+                var admin = {};
+                admin.AdminUserName = $("#ausername").val();
+
+                admin.AdminName = $("#aname").val();
+
+                admin.AdminSurName = $("#asurname").val();
+
+                admin.Phone = $("#aphone").val();
+
+                console.log(admin);
+
+                $.post("/api/Admins", admin, function (data) {
+                    console.log(data);
+                    location.reload();
+                });
+
+            })
+        });
+
+    </script>
+
+}

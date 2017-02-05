@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "CreditCard";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Custumer username</th>
+                    <th>Card number</th>
+                    <th>Cardholder number</th>
+
+                </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+
+        </table>
+    </div>
+
+    <div class="col-md-4">
+        <form class="form-horizontal">
+
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Custumer username</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="cusername" placeholder="Custumer username">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Card number</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="cnumber" placeholder="Card number">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Card svc code</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="svc" placeholder="Card svc code">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Cardholder name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="cname" placeholder="Cardholder name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Cardholder surname</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="csurname" placeholder="Cardholder surname">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Card expiration date</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="cdate" placeholder="Card expiration date">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Card type</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="ctype" placeholder="Card type">
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="addCard" class="btn btn-success">Add</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+
+
+@section scripts{
+    <script>
+
+        $(function () {
+            $.get("/api/CreditCard", function (data) {
+                console.log(data);
+
+                var tableBody = $("#tableBody");
+
+                $.each(data, function (index, value) {
+                    var tr = $("<tr></tr>");
+
+                    var td = $("<td >" + value.CustomerUserName + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.CardNumber + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.CardHolderName + " </td>");
+                    tr.append(td);
+
+
+                    tableBody.append(tr);
+
+                });
+
+            });
+
+
+            $("#addCard").on("click", function () {
+                var card = {};
+
+                card.CustomerUserName = $("#cusername").val();
+
+                card.CardNumber = $("#cnumber").val();
+
+                card.CardCvCode = $("#svc").val();
+
+                card.CardHolderName = $("#cname").val();
+
+                card.CardHolderSurName = $("#csurname").val();
+
+                card.CardDateTime = $("#cdate").val();
+
+                card.CardType = $("#ctype").val();
+
+                console.log(card);
+
+                $.post("/api/CreditCard", card, function (data) {
+                    console.log(data);
+                    location.reload();
+                });
+
+            })
+        });
+
+    </script>
+
+}

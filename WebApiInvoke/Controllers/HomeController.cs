@@ -20,6 +20,41 @@ namespace WebApiInvoke.Controllers
             return View();
         }
 
+        public ActionResult Topics()
+        {
+            return View();
+        }
+
+        public ActionResult Workshop()
+        {
+            return View();
+        }
+
+        public ActionResult CreditCard()
+        {
+            return View();
+        }
+
+        public ActionResult SetsGames()
+        {
+            return View();
+        }
+
+        public ActionResult Admins()
+        {
+            return View();
+        }
+
+        public ActionResult Comments()
+        {
+            return View();
+        }
+
+        public ActionResult Achievments()
+        {
+            return View();
+        }
+
         public ActionResult Register()
         {
             return View();

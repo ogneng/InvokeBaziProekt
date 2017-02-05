@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Comments";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Comment content</th>
+                    <th>Date posted</th>
+
+                </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+
+        </table>
+    </div>
+
+    <div class="col-md-4">
+        <form class="form-horizontal">
+
+            
+            <div class="form-group">
+                <label for="achTitle" class="col-sm-2 control-label">Comment</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="comment" placeholder="Comment">
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="addComment" class="btn btn-success">Add</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+
+
+@section scripts{
+    <script>
+
+        $(function () {
+            $.get("/api/Comments", function (data) {
+                console.log(data);
+
+                var tableBody = $("#tableBody");
+
+                $.each(data, function (index, value) {
+                    var tr = $("<tr></tr>");
+
+                    var td = $("<td >" + value.CommentContent + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.CommentDateTime + " </td>");
+                    tr.append(td);
+                                        
+
+                    tableBody.append(tr);
+
+                });
+
+            });
+
+
+            $("#addComment").on("click", function () {
+                var comment = {};
+                comment.CommentContent = $("#ausername").val();               
+
+                console.log(comment);
+
+                $.post("/api/Comments", comment, function (data) {
+                    console.log(data);
+                    location.reload();
+                });
+
+            })
+        });
+
+    </script>
+
+}

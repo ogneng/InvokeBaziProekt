@@ -182,30 +182,7 @@
     <script>
 
         $(function () {
-            $.get("/api/Users", function (data) {
-                console.log(data);
-
-                var tableBody = $("#tableBody");
-
-                $.each(data, function (index, value) {
-                    var tr = $("<tr></tr>");
-
-                    var td = $("<td >" + value.UserName + " </td>");
-                    tr.append(td);
-
-                    td = $("<td >" + value.Email + " </td>");
-                    tr.append(td);
-
-                    td = $("<td >" + value.Password + " </td>");
-                    tr.append(td);
-
-                    tableBody.append(tr);
-
-                });
-
-            });
-
-
+           
                 $("#addUser").on("click", function () {
                     if ($("input[name=showHide]:checked").val() == "Hide") {
                         var user = {};
@@ -214,7 +191,16 @@
                         user.Password = $("#userPassword").val();
                         user.Country = $("#userCountry").val();
                         user.Gender = $("#userGender").val();
+
+                        user.ItemArtisName = "asd123";
+                        user.ItemArtisSurName = "asd";
                         console.log(user);
+
+
+                        $.post("/api/Register", user, function (data) {
+                            console.log(data+"reg1");
+                            location.reload();
+                        });
                     }
                     else if (($("input[name=showHide]:checked").val() == "Show")) {
                         var user = {};
@@ -223,15 +209,19 @@
                         user.Password = $("#userPassword").val();
                         user.Country = $("#userCountry").val();
                         user.Gender = $("#userGender").val();
-                        user.Name = $("#name").val();
-                        user.Surname = $("#surname").val();
+
+                        user.ItemArtisName = $("#name").val();
+                        user.ItemArtisSurName = $("#surname").val();
                         console.log(user);
+
+                        $.post("/api/Register", user, function (data) {
+                            console.log(data+"reg2");
+                            location.reload();
+                        });
+
                     }
 
-                    $.post("/api/Users", user, function (data) {
-                        console.log(data);
-                        location.reload();
-                    });
+                    
 
                 })
         });
