@@ -16,13 +16,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @* <a href="Home"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSOzhgA881iYhpp4O-vFmoxnb3mQ5MZUQ9Wg1VPI6wfTwsxO0gs" width="50" height="50"></a>*@
+                @Html.ActionLink("Invoke", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Home2", "Index", "Home/Register", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Games", "Index", "Home/GetAllGames", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Items", "Index", "Home/Items", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Forums", "Index", "Home/Forums", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Help", "Index", "Help", new { area = "" }, null)</li>
+                    <li style=" position relative;left 620px;">@Html.ActionLink("Login or Sign up", "Index", "Home/Users", new { area = "" }, null)</li>
+
                 </ul>
             </div>
         </div>
