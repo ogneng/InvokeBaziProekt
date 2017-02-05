@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "LogIn"; 
+}
+
+<!DOCTYPE html>
+
+<div id="first">
+    <form action="" method="post">
+        <input type="text" id="userName" placeholder="Username" />
+        <input type="password" id="userPassword" placeholder="Password" />
+        <input type="button" id="login" value="Sign In" />
+    </form>
+</div>
+<div id="second">
+
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UserName</th>
+                    <th>Password</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+
+        </table>
+    </div>
+
+
+    @section scripts {
+        <script>
+            $(document).ready(function () {
+                // on click Sign In Button checks with the remote server that username =='admin' and password == 'password'
+                $("#login").click(function () {
+                    var user = {};
+                    user.UserName = $("#userName").val();
+                    user.Password = $("#userPassword").val();
+
+                    $.post("/api/LogIn", user, function (data) {
+                        console.log(data);
+                        localStorage.setItem('UserName', data.UserName);
+                        console.log(localStorage.getItem('UserName'));
+                    });
+
+
+                    /*    $.ajax({
+                          url: 'http://localhost:53301/api/Users' + encodeURIComponent($("#loginusername").val()) + '&pass=' + encodeURIComponent($("#loginpassword").val()),
+                            success: function (data) {
+                                 if (data == "OK") {
+                                     $("#first").hide();
+                                     $("#second").append("<p>Hello, admin</p> <br/><input type='button' id='logout' value='Log Out' />");
+                                 }
+                                 else {
+                                     alert("Please try again");
+                                 }
+                             }
+                         });*/
+                });
+
+                $("#logout").click(function () {
+                    $("form")[0].reset();
+                    $("#first").show();
+                    $("#second").hide();
+                });
+            });
+
+            $(function () {
+                var currentUserName = localStorage.getItem('UserName');
+               // $.get("/api/LogIn?username=" + currentUserName, function (data) {
+                    $.get("/api/LogIn/" + currentUserName, function (data) {
+                    console.log(data);
+                    var tableBody = $("#tableBody");
+
+                    $.each(data, function (index, value) {
+                        var tr = $("<tr></tr>");
+
+                        var td = $("<td >" + value.UserName + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.Email + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.Password + " </td>");
+                        tr.append(td);
+
+                        tableBody.append(tr);
+
+                    });
+
+                });
+
+            });
+
+
+        </script>
+    }

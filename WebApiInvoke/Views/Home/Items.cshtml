@@ -54,12 +54,13 @@
                 </div>
             </div>
 
-            <div class="form-group">
+        <!--<div class="form-group">
                 <label for="GameName" class="col-sm-2 control-label">Game Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="GameName" placeholder="Game Name">
                 </div>
-            </div>
+            </div>-->
+
 
             <div class="form-group">
                 <label for="UserID" class="col-sm-2 control-label">User ID</label>
@@ -82,6 +83,30 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="GameName" class="col-sm-2 control-label">Game Name</label>
+                <div class="col-sm-10">
+                    <select name="" id="GameName"></select>
+                </div>
+            </div>
+           <!-- <div class="form-group">
+                <label for="UserID" class="col-sm-2 control-label">UserID</label>
+                <div class="col-sm-10">
+                    <select name="" id="UserID"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ItemArtistUserName" class="col-sm-2 control-label">Item Artist UserName</label>
+                <div class="col-sm-10">
+                    <select name="" id="ItemArtistUserName"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="WorkShopID" class="col-sm-2 control-label">WorkShop ID</label>
+                <div class="col-sm-10">
+                    <select name="" id="WorkShopID"></select>
+                </div>
+            </div>-->
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -94,6 +119,14 @@
 
 </div>
 
+<div class="form-group">
+    <label for="ItemType" class="col-sm-2 control-label">Item Type</label>
+    <div class="col-sm-10">
+        <select name="" id="ItemTypeTest">
+
+        </select>
+    </div>
+</div>
 
 
 
@@ -127,13 +160,35 @@
                     });
 
                 });
+                var dataArray = [];
+                $(function () {
+                    $.get("/api/Games", function (data) {
+                        console.log(data);
+                        $.each(data, function (index, value) {
+                            dataArray.push(new option(index, value.Name));
+                        });
+                        dataFunction();
+                    });
+                });
+             
+                function option(value, text) {
+                    this.val = value;
+                    this.text = text;
+                }
+
+                function dataFunction() {
+                    $("#GameName").empty();
+                    dataArray.forEach(function (obj) {
+                        $('#GameName').append($('<option></option>').val(obj.text).html(obj.text))
+                    });
+                }
 
 
                 $("#addItem").on("click", function () {
                     var item = {};
                     item.ItemName = $("#ItemName").val();
                     item.ItemType = $("#ItemType").val();
-                    item.ItemDescription = $("#ItemDescription").val();
+                    item.ItemDescription = $("#ItemDescription").html();
                     item.ItemPrice = $("#ItemPrice").val();
                     item.GameName = $("#GameName").val();
                     item.UserID = $("#UserID").val();
@@ -149,6 +204,7 @@
 
                 })
             });
+
 
     </script>
 

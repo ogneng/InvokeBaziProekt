@@ -265,7 +265,7 @@ namespace WebApiInvoke.Controllers
         }
 
         // DELETE: api/Games/gamesname
-        public IHttpActionResult Delete(String gamesname)
+        public IHttpActionResult Delete(Game igra)
         {
             using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
             {
@@ -276,8 +276,8 @@ namespace WebApiInvoke.Controllers
 
                     // Insert some data
                     cmd.CommandText = "DELETE FROM  invoke.games " +
-                                "WHERE gamesname = ''"; //+
-                         //  $"VALUES('{igra.Name}','{igra.Description}',{igra.Price},'{igra.Date}','{igra.Developer}','{igra.Genre}');";
+                                "WHERE gamesname = ''" +
+                           $"VALUES('{igra.Name}');";
 
                     cmd.ExecuteNonQuery();
                 }
