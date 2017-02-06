@@ -84,6 +84,9 @@
                         td = $("<td >" + value.Password + " </td>");
                         tr.append(td);
 
+
+                        localStorage.setItem('ID', value.UserID);
+
                         tableBody.append(tr);
 
                     });
