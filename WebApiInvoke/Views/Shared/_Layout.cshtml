@@ -8,6 +8,15 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <style>
+        #divfloat
+        {
+            margin-top:10px;
+            float:right;
+            clear:both;
+        }
+
+    </style>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -26,11 +35,17 @@
                     <li>@Html.ActionLink("Items", "Index", "Home/Items", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Forums", "Index", "Home/Forums", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Help", "Index", "Help", new { area = "" }, null)</li>
-                    <li style=" position relative;left 620px;">@Html.ActionLink("Login or Sign up", "Index", "Home/Users", new { area = "" }, null)</li>
+                   
 
                 </ul>
-            </div>
+                <div id="#divfloat">
+                    <label>@Html.ActionLink("Login", "Index", "Home/LogIn", new { area = "" }, null)</label>
+                    <label>or</label>
+                    <label>@Html.ActionLink("Sign up", "Index", "Home/Register", new { area = "" }, null)</label>
+                </div>
+                </div>
         </div>
+        
     </div>
     <div class="container body-content">
         @RenderBody()

@@ -51,33 +51,42 @@ namespace WebApiInvoke.Controllers
 
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "SELECT users.usersid from users where users.username = '" + user.UserName.ToString() + "'; ";
-                    //   
-                    // var pom = cmd.ExecuteReader();
 
-                    //  var pomm = pom.GetInt64(0);
+                    //cmd.CommandText = "SELECT * from users where users.usersid = 6 ";
+                    //   cmd.CommandText = "SELECT users.usersid from users where users.username = '" + user.UserName + "'; ";
 
-                    var pom = cmd.ExecuteReader();
-                    int flag = pom.GetInt32(0);
-                   // pom.GetInt64(0);   
+                    cmd.CommandText = $"SELECT * FROM invoke.users where users.username = '{user.UserName}'";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                            user.UserID = reader.GetInt64(0);
+                          
+
+                        }
+                    }
+
 
                     if (user.ItemArtisName == "asd123")
                     {
                         cmd.CommandText = "INSERT INTO invoke.costomers " +
                             "(usersid,costomersusername) " +
-                            $"VALUES('{user.UserName}');";
+                            $"VALUES({user.UserID},'{user.UserName}');";
                         cmd.ExecuteNonQuery();
 
                     }
                     else
                     {
                         cmd.CommandText = "INSERT INTO invoke.itemartist " +
-                            "(usersid,itemartistusername,itemartistname,itemartistsurname) " +
-                            $"VALUES( {pom.GetInt32(0)},'{user.UserName}','{user.ItemArtisName}','{user.ItemArtisSurName}');";
+                             "(usersid,itemartistusername,itemartistname,itemartistsurname) " +
+                             $"VALUES({user.UserID},'{user.UserName}','{user.ItemArtisName}','{user.ItemArtisSurName}') ";
+
                         cmd.ExecuteNonQuery();
                     }
 
-                    pom.Close();
+                    
 
                    
                 }

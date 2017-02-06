@@ -62,24 +62,25 @@
             </div>-->
 
 
-            <div class="form-group">
+          <!--  <div class="form-group">
                 <label for="UserID" class="col-sm-2 control-label">User ID</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="UserID" placeholder="User ID">
                 </div>
-            </div>
+            </div>-->
 
-            <div class="form-group">
-                <label for="ItemArtistUserName" class="col-sm-2 control-label">ItemArtistUserName</label>
+            <!--<div class="form-group">
+               <label for="ItemArtistUserName" class="col-sm-2 control-label">ItemArtistUserName</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="ItemArtistUserName" placeholder="ItemArtistUserName">
                 </div>
-            </div>
+            </div>-->
+
 
             <div class="form-group">
-                <label for="WorkShopID" class="col-sm-2 control-label">WorkShopID</label>
+                <label for="WokrShoppom" class="col-sm-2 control-label">Workshop Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="WorkShopID" placeholder="WorkShopID">
+                    <select name="" id="WokrShoppom"></select>
                 </div>
             </div>
 
@@ -151,14 +152,17 @@
                     });
 
                 });
-                var dataArray = [];
+
+                //gamesname
+                var dataArraygn = [];
+
                 $(function () {
                     $.get("/api/Games", function (data) {
                         console.log(data);
                         $.each(data, function (index, value) {
-                            dataArray.push(new option(index, value.Name));
+                            dataArraygn.push(new option(index, value.Name));
                         });
-                        dataFunction();
+                        dataFunctiongm();
                     });
                 });
              
@@ -167,24 +171,54 @@
                     this.text = text;
                 }
 
-                function dataFunction() {
+                function dataFunctiongm() {
                     $("#GameName").empty();
-                    dataArray.forEach(function (obj) {
+                    dataArraygn.forEach(function (obj) {
                         $('#GameName').append($('<option></option>').val(obj.text).html(obj.text))
                     });
                 }
+
+
+                //workshop
+                var dataArrayws = [];
+
+                $(function () {
+                    $.get("/api/Workshop", function (data) {
+                        console.log(data);
+                        $.each(data, function (index, value) {
+                            dataArrayws.push(new option(index, value.WorkshopID+"-"+value.WorkshopName));
+                        });
+                        dataFunctionws();
+                    });
+                });
+
+                function option(value, text) {
+                    this.val = value;
+                    this.text = text;
+                }
+
+                function dataFunctionws() {
+                    $("#WokrShoppom").empty();
+                    dataArrayws.forEach(function (obj) {
+                        $('#WokrShoppom').append($('<option></option>').val(obj.text).html(obj.text))
+                    });
+                }
+
+                
 
 
                 $("#addItem").on("click", function () {
                     var item = {};
                     item.ItemName = $("#ItemName").val();
                     item.ItemType = $("#ItemType").val();
-                    item.ItemDescription = $("#ItemDescription").html();
+                    item.ItemDescription = $("#ItemDescription").val();
                     item.ItemPrice = $("#ItemPrice").val();
                     item.GameName = $("#GameName").val();
-                    item.UserID = $("#UserID").val();
-                    item.ItemArtistUserName = $("#ItemArtistUserName").val();
-                    item.WorkShopID = $("#WorkShopID").val();
+                    item.UserID = localStorage.getItem('ID');
+                    item.ItemArtistUserName = localStorage.getItem('UserName');
+                    //item.WorkShopID = $("#WokrShoppom").val();
+                    pom = $("#WokrShoppom").text();
+                    item.WorkShopID = pom.substring(0, pom.indexOf('-'));
 
                     console.log(item);
 
