@@ -202,8 +202,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\PurchaseStatisticsController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SetsGamesController.cs" />
+    <Compile Include="Controllers\TopBuyerController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WorkshopController.cs" />
@@ -227,8 +229,10 @@
     <Compile Include="Models\loginuser.cs" />
     <Compile Include="Models\PurchaseGames.cs" />
     <Compile Include="Models\PurchaseItems.cs" />
+    <Compile Include="Models\PurchaseStatistics.cs" />
     <Compile Include="Models\SellingItems.cs" />
     <Compile Include="Models\SetsGames.cs" />
+    <Compile Include="Models\TopBuyer.cs" />
     <Compile Include="Models\Topics.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\VoteForItem.cs" />
@@ -301,6 +305,8 @@
     <Content Include="Views\Home\SetsGames.cshtml" />
     <Content Include="Views\Home\Topics.cshtml" />
     <Content Include="Views\Home\Workshop.cshtml" />
+    <Content Include="Views\Home\PurchaseStatistics.cshtml" />
+    <Content Include="Views\Home\TopBuyer.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

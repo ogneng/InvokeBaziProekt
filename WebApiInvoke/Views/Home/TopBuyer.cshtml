@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "TopBuyer";
+}
+<br>
+<h3>Here you can Search for TopBuyer for given Game Genre</h3>
+<p>You can only Search by shortcuts of the Game Ganre like (MOBA,FPS)</p>
+<form class="form-horizontal">
+    <div class="row">
+        <div class="form-group">
+            <div class="row">
+                <label for="gameGenre" class="col-sm-2 control-label">Genre</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="gameGenre" placeholder="Genre">
+                </div>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="Search" class="btn btn-success">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-8">
+        <table border="1" class="table">
+            <thead>
+                <tr>
+                    <th>UserName</th>
+                    <th>Мonth</th>
+                    <th>Profit</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody" style="background-color:green"></tbody>
+
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        $(function () {
+        /*    $.get("/api/TopBuyer", function (data) {
+                    console.log(data);
+
+                    var tableBody = $("#tableBody");
+
+                    $.each(data, function (index, value) {
+                        var tr = $("<tr></tr>");
+
+                        var td = $("<td >" + value.UserName + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.Month + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.Profit + " </td>");
+                        tr.append(td);
+
+                        tableBody.append(tr);
+
+                    });
+
+            });*/
+
+            $("#Search").on("click", function () {
+                var genre = $("#gameGenre").val();
+                $.get("/api/TopBuyer/" + genre, function (data) {
+                    console.log(data);
+                   // window.location = "/Home/TopBuyer/" + genre;
+                    var tableBody = $("#tableBody");
+
+                    $.each(data, function (index, value) {
+                        var tr = $("<tr></tr>");
+
+                        var td = $("<td >" + value.UserName + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.Month + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.Profit + " </td>");
+                        tr.append(td);
+
+                        tableBody.append(tr);
+
+                    });
+
+                });
+            })
+
+            });
+
+    </script>
+
+}

@@ -76,5 +76,14 @@ namespace WebApiInvoke.Controllers
         {
             return View();
         }
+        public ActionResult PurchaseStatistics()
+        {
+            return View();
+        }
+        public ActionResult TopBuyer()
+        {
+            return View();
+        }
+        
     }
 }

@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "PurchaseStatistics";
+}
+<br>
+<div class="row">
+    <div class="col-md-8">
+        <table border="1" class="table">
+            <thead>
+                <tr>
+                    <th>Мonth</th>
+                    <th>TotalGamePrice</th>
+                    <th>TotalItemsPrice</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+
+        </table>
+    </div>
+ </div>
+
+@section scripts{
+    <script>
+
+            $(function () {
+                $.get("/api/PurchaseStatistics", function (data) {
+                    console.log(data);
+
+                    var tableBody = $("#tableBody");
+
+                    $.each(data, function (index, value) {
+                        var tr = $("<tr></tr>");
+
+                        var td = $("<td >" + value.Month + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.TotalGames + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.TotalItems + " </td>");
+                        tr.append(td);
+                        td = $("<td >" + value.Total + " </td>");
+                        tr.append(td);
+
+                        tableBody.append(tr);
+
+                    });
+
+                });
+
+            });
+
+    </script>
+
+}
