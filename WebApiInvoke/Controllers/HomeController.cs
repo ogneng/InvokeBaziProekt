@@ -84,6 +84,9 @@ namespace WebApiInvoke.Controllers
         {
             return View();
         }
-        
+        public ActionResult Game()
+        {
+            return View();
+        }
     }
 }

@@ -2,11 +2,11 @@
     ViewBag.Title = "LogIn"; 
 }
 
-<!DOCTYPE html>
-
+<br>
 <div id="first">
     <form action="" method="post">
         <input type="text" id="userName" placeholder="Username" />
+        <br>
         <input type="password" id="userPassword" placeholder="Password" />
         <input type="button" id="login" value="Sign In" />
     </form>
@@ -15,7 +15,7 @@
 
 </div>
 
-<div class="row">
+<div class="row" id="UserInformation">
     <div class="col-md-8">
         <table class="table">
             <thead>
@@ -46,6 +46,7 @@
                         console.log(data);
                         localStorage.setItem('UserName', data.UserName);
                         console.log(localStorage.getItem('UserName'));
+                        location.reload();
                     });
 
 
@@ -71,7 +72,6 @@
                     $.get("/api/LogIn/" + currentUserName, function (data) {
                     console.log(data);
                     var tableBody = $("#tableBody");
-
                     $.each(data, function (index, value) {
                         var tr = $("<tr></tr>");
 
@@ -91,7 +91,13 @@
 
                     });
 
-                });
+                    });
+
+                    var currentUserName = localStorage.getItem('UserName');
+                    if (currentUserName.length != "superadmin") {
+                        $("#UserInformation").hide();
+                    }
+
 
             });
 

@@ -103,8 +103,10 @@
                         tableBody.append(tr);
 
                     });
-
+                    addRowHandlers();
                 });
+
+
 
 
                 $("#addGame").on("click", function () {
@@ -123,6 +125,51 @@
                     });
 
                 })
+
+                $.get("/api/Games/" + id, function (data) {
+                    console.log(data);
+
+                    var tableBody = $("#tableBody");
+
+                    $.each(data, function (index, value) {
+                        var tr = $("<tr></tr>");
+
+                        var td = $("<td >" + value.Name + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.Description + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.Price + " </td>");
+                        tr.append(td);
+
+                        tableBody.append(tr);
+
+                    });
+                    addRowHandlers();
+                });
+
+            function addRowHandlers() {
+                var table = document.getElementById("tableBody");
+                var rows = table.getElementsByTagName("tr");
+                for (i = 0; i < rows.length; i++) {
+                    var currentRow = table.rows[i];
+                    var createClickHandler =
+                        function (row) {
+                            return function () {
+                                var cell = row.getElementsByTagName("td")[0];
+                                var id = cell.innerHTML;
+                                window.location = "http://localhost:53301/Home/Game/" + id;
+
+                            };
+                        };
+
+                    currentRow.onclick = createClickHandler(currentRow);
+
+                }
+                console.log("Add ID");
+            }
+
             });
 
         </script>

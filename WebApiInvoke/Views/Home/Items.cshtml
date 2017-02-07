@@ -114,6 +114,11 @@
                     <button type="button" id="addItem" class="btn btn-success">Add Item</button>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="update" class="btn btn-success">Update Item</button>
+                </div>
+            </div>
         </form>
 
     </div>
@@ -228,6 +233,47 @@
                     });
 
                 })
+
+                $("#update").on("click", function () {
+                    var item = {};
+                    var itemEdit = {};
+                    item.ItemName = $("#ItemName").val();
+                    item.ItemType = $("#ItemType").val();
+                    item.ItemDescription = $("#ItemDescription").val();
+                    item.ItemPrice = $("#ItemPrice").val();
+                    item.GameName = $("#GameName").val();
+                    item.UserID = localStorage.getItem('ID');
+                    item.ItemArtistUserName = localStorage.getItem('UserName');
+                    pom = $("#WokrShoppom").text();
+                    item.WorkShopID = pom.substring(0, pom.indexOf('-'));
+
+                    itemEdit.ItemName = $("#ItemName").val();
+                    itemEdit.ItemDescription = $("#ItemDescription").val();
+
+                    console.log(item);
+
+                   /* $.get("/api/Items/" + ItemName, item, function (data) {
+                        console.log(data);
+
+                    });
+                    $.put("/api/Items/" + ItemName, item, function (data) {
+                        console.log(data);
+                        location.reload();
+                    });*/
+
+                    $.ajax({
+                        url: '/api/Items/' + ItemName,    //Your api url
+                        type: 'PUT',   //type is any HTTP method
+                        data: item,      //Data as js object
+                        success: function () {
+                            console.log("Edited")
+                        }
+                    });
+
+
+                })
+
+
             });
 
 

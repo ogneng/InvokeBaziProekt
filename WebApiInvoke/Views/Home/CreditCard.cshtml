@@ -2,8 +2,8 @@
     ViewBag.Title = "CreditCard";
 }
 
-<div class="row">
-    <div class="col-md-8">
+<div class="row" id="main">
+  <!--  <div class="col-md-8">
         <table class="table">
             <thead>
                 <tr>
@@ -18,8 +18,8 @@
 
         </table>
     </div>
-
-    <div class="col-md-4">
+    -->
+    <div class="col-md-4" id="enterCreditCard">
         <form class="form-horizontal">
 
 
@@ -110,8 +110,6 @@
 
                     td = $("<td >" + value.CardHolderName + " </td>");
                     tr.append(td);
-
-
                     tableBody.append(tr);
 
                 });
@@ -121,29 +119,27 @@
 
             $("#addCard").on("click", function () {
                 var card = {};
-
                 card.CustomerUserName = $("#cusername").val();
-
                 card.CardNumber = $("#cnumber").val();
-
                 card.CardCvCode = $("#svc").val();
-
                 card.CardHolderName = $("#cname").val();
-
                 card.CardHolderSurName = $("#csurname").val();
-
                 card.CardDateTime = $("#cdate").val();
-
                 card.CardType = $("#ctype").val();
-
                 console.log(card);
-
                 $.post("/api/CreditCard", card, function (data) {
                     console.log(data);
                     location.reload();
                 });
-
             })
+
+            var currentUserName = localStorage.getItem('UserName');
+            if (currentUserName.length != 0) {
+                $("#enterCreditCard").hide();
+            }
+            else {
+                $("#enterCreditCard").show();
+            }
         });
 
     </script>
