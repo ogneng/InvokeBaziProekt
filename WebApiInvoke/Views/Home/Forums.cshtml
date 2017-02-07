@@ -114,6 +114,10 @@
             });
         }
 
+        var currentLocation = window.location.pathname;
+        var gameName = currentLocation.split("/")[3];
+        console.log("Forum Game" + gameName);
+
         $(function () {
             $.get("/api/Forums", function (data) {
                 console.log(data);
@@ -162,6 +166,33 @@
                 }
                 console.log("Add ID");
             }
+
+
+            $.get("/api/Forums/" + gameName, function (data) {
+                console.log(data);
+
+                var tableBody = $("#tableBody");
+
+                $.each(data, function (index, value) {
+                    var tr = $("<tr></tr>");
+
+                    var td = $("<td >" + value.ForumName + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.ForumDateTime + " </td>");
+                    tr.append(td);
+
+                    td = $("<td >" + value.GameName + " </td>");
+                    tr.append(td);
+
+                    td = $("<td style='display:none'>" + value.ForumID + " </td>");
+                    tr.append(td);
+
+                    tableBody.append(tr);
+
+                });
+                addRowHandlers();
+            });
 
         });
 

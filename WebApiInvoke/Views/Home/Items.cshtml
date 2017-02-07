@@ -135,7 +135,12 @@
 @section scripts{
     <script>
 
-            $(function () {
+        $(function () {
+            var currentLocation = window.location.pathname;
+            var gameName = currentLocation.split("/")[3];
+            console.log("Item Game " + gameName);
+
+            if (gameName === undefined) {
                 $.get("/api/Items", function (data) {
                     console.log(data);
 
@@ -161,6 +166,33 @@
                     });
 
                 });
+            } else {
+                $.get("/api/Items/" + gameName, function (data) {
+                    console.log(data);
+
+                    tableBody = $("#tableBody");
+
+                    $.each(data, function (index, value) {
+                        var tr = $("<tr></tr>");
+
+                        var td = $("<td >" + value.ItemName + " </td>");
+                        tr.append(td);
+
+                        var td = $("<td >" + value.ItemType + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.ItemDescription + " </td>");
+                        tr.append(td);
+
+                        td = $("<td >" + value.ItemPrice + " </td>");
+                        tr.append(td);
+
+                        tableBody.append(tr);
+
+                    });
+
+                });
+            }
 
                 //gamesname
                 var dataArraygn = [];

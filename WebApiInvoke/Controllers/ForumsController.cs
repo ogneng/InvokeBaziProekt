@@ -49,9 +49,40 @@ namespace WebApiInvoke.Controllers
         }
 
         // GET: api/Forums/5
-        public string Get(int id)
+        public List<Forums> Get(string id)
         {
-            return "value";
+            List<Forums> forumLike = new List<Forums>();
+            // using (var conn = new NpgsqlConnection("Host = localhost; Port = 5432; Username = postgres; Database = invokeTest; "))
+            using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    // Retrieve all rows
+                    cmd.CommandText = $"SELECT * FROM invoke.forums where forums.gamesname = '" + id + "'";
+
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Forums forum = new Forums();
+                            forum.ForumID = reader.GetInt64(0);
+                            forum.ForumName = reader.GetString(1);
+                            forum.ForumDateTime = (DateTime)reader.GetDateTime(2);
+                            forum.GameName = reader.GetString(3);
+
+                            forumLike.Add(forum);
+
+                        }
+                    }
+
+                }
+            }
+
+            return forumLike;
         }
 
         // POST: api/Forums

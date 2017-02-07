@@ -18,18 +18,21 @@
         </ul>
 
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" id="buygame" class="btn btn-success">Buy</button>
+                <div class="col-sm-6 col-sm-offset-3">
+                    <button type="button" id="buygame" class="btn btn-success btn-block">Buy</button>
                 </div>
 
-                <div class="col-sm-offset-2 col-sm-10 " style="display:none;" id="showw">
+                <div class="col-sm-6 col-sm-offset-3" style="display:none;" id="showw">
                     <p id="comfirm">Comfirm</p>
-                    <button type="button" id="yes" class="btn btn-success" >Yes</button>
+                    <button type="button" id="yes" class="btn btn-success btn-block" >Yes</button>
                 </div>
             </div>
             <p class="card-text" id="uspesno"></p>
         </div>
     </div>
+    <div class="row"><button type="button" id="goToForum" class="btn btn-primary btn-block"></button></div>
+    <div class="row"><button type="button" id="goToItems" class="btn btn-primary btn-block"></button></div>
+    
 </div>
 
    
@@ -37,11 +40,17 @@
 @section scripts{
     <script>
 
-            $(function () {
+
+        $(function () {
+
+
                 var currentLocation = window.location.pathname;
                 console.log(currentLocation);
                 var GameName = currentLocation.split("/")[3];
                 console.log(GameName);
+
+                $('#goToForum').append($('<span></span>').html("Go to " + GameName + " Forum"))
+                $('#goToItems').append($('<span></span>').html("Go to " + GameName + " Items"))
 
                 $.get("/api/Games/" + GameName, function (data) {
                     console.log(data);
@@ -119,6 +128,18 @@
                     window.location = "http://localhost:53301/Home/LogIn";
 
                 }
+            })
+            $("#goToForum").on("click", function () {
+                var currentLocation = window.location.pathname;
+                var gameName = currentLocation.split("/")[3];
+                console.log(gameName);
+                window.location = "http://localhost:53301/Home/Forums/" + gameName;              
+            })
+            $("#goToItems").on("click", function () {
+                var currentLocation = window.location.pathname;
+                var gameName = currentLocation.split("/")[3];
+                console.log(gameName);
+                window.location = "http://localhost:53301/Home/Items/" + gameName;
             })
             });
         

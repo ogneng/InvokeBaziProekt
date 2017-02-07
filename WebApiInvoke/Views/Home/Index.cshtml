@@ -62,24 +62,3 @@
         </div>
     </div>
 </div>
-@section scripts{
-    <script type="text/javascript" language="javascript">
-    $(document).ready(function () {
-        var currentUserName = localStorage.getItem('UserName');
-        console.log(currentUserName);
-        console.log("ne fleve tuka");
-        console.log((@Html.ActionLink("LogOut", "Index", "Home", new { area = "" }, null));
-        if (currentUserName != null) {
-            $("#LogOut").show();
-            if((@Html.ActionLink("LogOut", "Index", "Home", new { area = "" }, null) == ture){
-            localStorage.removeItem("ID");
-            localStorage.removeItem("UserName");
-            }
-        }
-        else {
-            $("#LogIn").show();
-        }
-    });
-
-    </script>
-}
