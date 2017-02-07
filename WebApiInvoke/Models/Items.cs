@@ -16,5 +16,6 @@ namespace WebApiInvoke.Models
         public Int64 UserID { get; set; }
         public string ItemArtistUserName { get; set; }
         public Int64 WorkShopID { get; set; }
+        public string Pom { get; set; }
     }
 }

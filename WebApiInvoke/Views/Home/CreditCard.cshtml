@@ -19,9 +19,10 @@
         </table>
     </div>
     -->
+    asd
     <div class="col-md-4" id="enterCreditCard">
         <form class="form-horizontal">
-
+            ASD
 
             <div class="form-group">
                 <label for="achTitle" class="col-sm-2 control-label">Custumer username</label>
@@ -93,6 +94,7 @@
 @section scripts{
     <script>
 
+
         $(function () {
             $.get("/api/CreditCard", function (data) {
                 console.log(data);
@@ -119,7 +121,8 @@
 
             $("#addCard").on("click", function () {
                 var card = {};
-                card.CustomerUserName = $("#cusername").val();
+                card.UserID = localStorage.getItem('ID');
+                card.CustomerUserName = localStorage.getItem('UserName');
                 card.CardNumber = $("#cnumber").val();
                 card.CardCvCode = $("#svc").val();
                 card.CardHolderName = $("#cname").val();
@@ -133,13 +136,7 @@
                 });
             })
 
-            var currentUserName = localStorage.getItem('UserName');
-            if (currentUserName.length != 0) {
-                $("#enterCreditCard").hide();
-            }
-            else {
-                $("#enterCreditCard").show();
-            }
+
         });
 
     </script>

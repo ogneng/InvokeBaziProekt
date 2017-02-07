@@ -32,7 +32,7 @@
                     <li>@Html.ActionLink("Forums", "Index", "Home/Forums", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Help", "Index", "Help", new { area = "" }, null)</li>
                     <li style="position:relative;left:620px;" id="LogIn">@Html.ActionLink("Login", "Index", "Home/LogIn", new { area = "" }, null)</li>
-                    <li style="position:relative;left:620px;" id="LogOut">@Html.ActionLink("LogOut", "Index", "Home", new { area = "" }, null)</li>
+                    <li style="position:relative;left:620px;" ><button type="button" id="LogOut" class="btn btn-success">LogOut</button></li>
 
                 </ul>
             </div>
@@ -47,6 +47,14 @@
     </div>
 
 </body>
+@section scripts{
+<script>    
+
+    
+ </script>
+
+}
+
 
 </html>
 

@@ -308,6 +308,7 @@
     <Content Include="Views\Home\PurchaseStatistics.cshtml" />
     <Content Include="Views\Home\TopBuyer.cshtml" />
     <Content Include="Views\Home\Game.cshtml" />
+    <Content Include="Views\Home\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

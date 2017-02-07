@@ -9,9 +9,11 @@ namespace WebApiInvoke.Models
     {
         public Int64 CommentID { get; set; }
         public string CommentContent { get; set; }
-
+        public string Pom { get; set; }
         public DateTime CommentDateTime { get; set; }
         public Int64 UserID { get; set; }
         public Int64 TopicID { get; set; }
+
+        public string newContent { get; set; }
     }
 }

@@ -1,6 +1,11 @@
 ﻿@{
     ViewBag.Title = "Topics";
 }
+<style>
+    tbody tr:hover {
+        background-color: deepskyblue;
+    }
+</style>
 
 <div class="row">
     <div class="col-md-8">
@@ -66,7 +71,12 @@
     <script>
 
         $(function () {
-            $.get("/api/Topics", function (data) {
+            var currentLocation = window.location.pathname;
+            console.log(currentLocation);
+            var ForumName = currentLocation.split("/")[3];
+            console.log(ForumName);
+
+            $.get("/api/Topics/"+ForumName, function (data) {
                 console.log(data);
 
                 var tableBody = $("#tableBody");
@@ -83,12 +93,36 @@
                     td = $("<td >" + value.TopicDateTime + " </td>");
                     tr.append(td);
 
+                    td = $("<td style='display:none'>" + value.TopicID + " </td>");
+                    tr.append(td);
+
 
                     tableBody.append(tr);
 
                 });
-
+                addRowHandlers();
             });
+
+            function addRowHandlers() {
+                var table = document.getElementById("tableBody");
+                var rows = table.getElementsByTagName("tr");
+                for (i = 0; i < rows.length; i++) {
+                    var currentRow = table.rows[i];
+                    var createClickHandler =
+                        function (row) {
+                            return function () {
+                                var cell = row.getElementsByTagName("td")[3];
+                                var id = cell.innerHTML;
+                                window.location = "http://localhost:53301/Home/Comments/" + id;
+
+                            };
+                        };
+
+                    currentRow.onclick = createClickHandler(currentRow);
+
+                }
+                console.log("Add ID");
+            }
 
 
             $("#addTopic").on("click", function () {

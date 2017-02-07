@@ -48,9 +48,39 @@ namespace WebApiInvoke.Controllers
         }
 
         // GET: api/Topics/5
-        public string Get(int id)
+        public List<Topics> Get(string id)
         {
-            return "value";
+            List<Topics> pomLista = new List<Topics>();
+
+            using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
+            {
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = $"SELECT * from invoke.topics where topics.usersid = {id}";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            Topics topic = new Topics();
+                            topic.TopicID = reader.GetInt64(0);
+                            topic.UserID = reader.GetInt64(1);
+                            topic.ForumID = reader.GetInt64(2);
+                            topic.TopicName = reader.GetString(3);
+                            topic.TopicDescription = reader.GetString(4);
+                            topic.TopicDateTime = (DateTime)reader.GetDateTime(5);
+
+                            pomLista.Add(topic);
+                        }
+
+                    }
+                }
+            }
+            return pomLista;
         }
 
         // POST: api/Topics

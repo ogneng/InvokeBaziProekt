@@ -70,8 +70,8 @@ namespace WebApiInvoke.Controllers
                     // Insert some data
 
                     cmd.CommandText = "INSERT INTO invoke.creditcards " +
-                                "(customerusername,cardsnumber,cardscvcode,cardscardholdername,cardscardholdersurname,cardsexpirationdate,cardstype) " +
-                           $"VALUES('{card.CustomerUserName}','{card.CardNumber}','{card.CardCvCode}','{card.CardHolderName}','{card.CardHolderSurName}','{card.CardDateTime}','{card.CardType}');";
+                                "(usersid, customerusername, cardsnumber, cardscvcode, cardscardholdername, cardscardholdersurname, cardsexpirationdate, cardstype) " +
+                           $"VALUES({card.UserID},'{card.CustomerUserName}',{card.CardNumber},{card.CardCvCode},'{card.CardHolderName}','{card.CardHolderSurName}','{card.CardDateTime}','{card.CardType}');";
 
                     cmd.ExecuteNonQuery();
                 }

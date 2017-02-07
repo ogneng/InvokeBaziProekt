@@ -247,13 +247,12 @@ namespace WebApiInvoke.Controllers
                     {
                         cmd.Connection = conn;
 
-                        // Insert some data
+                    // Insert some data
 
-                        cmd.CommandText = "INSERT INTO invoke.games " +
-                                    "(gamesname,gamesdescription,gamesprice,gamesreleasedate,gamesdeveloper,gamesgenre) " +
-                               $"VALUES('{igra.Name}','{igra.Description}',{igra.Price},'{igra.Date}','{igra.Developer}','{igra.Genre}');";
-
-                        cmd.ExecuteNonQuery();
+                    cmd.CommandText = "INSERT INTO invoke.boughtgames " +
+                                       "(usersid, gamesname) " +
+                                        $"VALUES('{igra.Pom}','{igra.Name}');";
+                    cmd.ExecuteNonQuery();
                     }
    
                     return Ok("Added game");

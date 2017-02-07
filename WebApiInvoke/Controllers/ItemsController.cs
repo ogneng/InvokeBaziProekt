@@ -53,42 +53,9 @@ namespace WebApiInvoke.Controllers
         }
 
         // GET: api/Items/5
-        public List<Items> Get(int id)
+        public string Get(int id)
         {
-            List<Items> items = new List<Items>();
-            using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
-            {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandText = $"SELECT * FROM invoke.users where users.username = '{id}'";
-
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Items item = new Items();
-                            item.ItemID = reader.GetInt64(0);
-                            item.ItemName = reader.GetString(1);
-                            item.ItemType = reader.GetString(2);
-                            item.ItemDescription = reader.GetString(3);
-                            item.ItemPrice = reader.GetInt32(4);
-                            item.GameName = reader.GetString(5);
-                            item.UserID = reader.GetInt64(6);
-                            item.ItemArtistUserName = reader.GetString(7);
-                            item.WorkShopID = reader.GetInt64(8);
-
-                            items.Add(item);
-
-                        }
-                    }
-
-                }
-            }
-
-            return items;
+            return "value";
         }
 
         // POST: api/Items
@@ -102,12 +69,59 @@ namespace WebApiInvoke.Controllers
                     cmd.Connection = conn;
 
                     // Insert some data
+                    if (item.Pom == "add")
+                    {
+                        cmd.CommandText = "INSERT INTO invoke.items " +
+                                    "(itemsname,itemstype,itemsdescription,itemsprice,gamesname,usersid,itemartistusername,workshopsid) " +
+                               $"VALUES('{item.ItemName}','{item.ItemType}','{item.ItemDescription}',{item.ItemPrice},'{item.GameName}',{item.UserID},'{item.ItemArtistUserName}',{item.WorkShopID});";
 
-                    cmd.CommandText = "INSERT INTO invoke.items " +
-                                "(itemsname,itemstype,itemsdescription,itemsprice,gamesname,usersid,itemartistusername,workshopsid) " +
-                           $"VALUES('{item.ItemName}','{item.ItemType}','{item.ItemDescription}',{item.ItemPrice},'{item.GameName}',{item.UserID},'{item.ItemArtistUserName}',{item.WorkShopID});";
+                        cmd.ExecuteNonQuery();
+                    }
+                    else if (item.Pom == "update")
+                    {
 
-                    cmd.ExecuteNonQuery();
+                        cmd.CommandText = $"SELECT * FROM invoke.items where items.itemsname = '{item.ItemName}'";
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                                item.UserID = reader.GetInt64(0);
+
+
+                            }
+                        }
+
+                        cmd.CommandText = "UPDATE invoke.items " +
+                                 $"SET itemsname='{item.ItemName}', itemstype='{item.ItemType}', itemsdescription='{item.ItemDescription}', itemsprice={item.ItemPrice}, gamesname='{item.GameName}',itemartistusername='{item.ItemArtistUserName}', workshopsid={item.WorkShopID} " +
+                                 $"WHERE itemsid = {item.UserID}; ";
+                        cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+
+
+
+                        cmd.CommandText = $"SELECT * FROM invoke.items where items.itemsname = '{item.ItemName}'";
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                                item.UserID = reader.GetInt64(0);
+
+
+                            }
+                        }
+
+                        cmd.CommandText = "DELETE FROM  invoke.items " +
+                                 //   $"SET itemsname='{item.ItemName}', itemstype='{item.ItemType}', itemsdescription='{item.ItemDescription}', itemsprice={item.ItemPrice}, gamesname='{item.GameName}',itemartistusername='{item.ItemArtistUserName}', workshopsid={item.WorkShopID} " +
+                                 $"WHERE itemsid = {item.UserID}; ";
+                        cmd.ExecuteNonQuery();
+
+                    }
                 }
 
                 return Ok("Added forum");
@@ -115,7 +129,7 @@ namespace WebApiInvoke.Controllers
         }
 
         // PUT: api/Items/5
-        public IHttpActionResult Put(string id, Items item)
+        public IHttpActionResult PUT(Items item)
         {
             using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
             {
@@ -123,15 +137,26 @@ namespace WebApiInvoke.Controllers
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    //cmd.CommandText = $"SELECT * FROM invoke.users where users.username = '{id}'";
-                    cmd.CommandText = "UPDATE invoke.items SET itemsname = '"+ id + "', itemstype = '" + item.ItemType + "', itemsdescription = '" + item.ItemDescription + "', itemsprice = " + item.ItemPrice + ", gamesname = '"+ item.GameName +"', usersid = "+ item.UserID + ", itemartistusername = '"+ item.ItemArtistUserName +"', workshopsid = "+ item.WorkShopID + " WHERE itemsid = nextval('items_itemsid_seq'::regclass);";
+                    cmd.CommandText = $"SELECT * FROM invoke.items where items.itemsname = '{item.ItemName}'";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            item.UserID = reader.GetInt64(0);
+
+
+                        }
+                    }
+
+                    cmd.CommandText = "UPDATE invoke.items " +
+                             $"SET itemsname='{item.ItemName}', itemstype='{item.ItemType}', itemsdescription='{item.ItemDescription}', itemsprice={item.ItemPrice}, gamesname='{item.GameName}', usersid={item.UserID}, itemartistusername='{item.ItemArtistUserName}', workshopsid={item.WorkShopID} " +
+                             $"WHERE itemsid = {item.UserID}; ";
                     cmd.ExecuteNonQuery();
                 }
-
-                return Ok("Added item");
+                return Ok("updated");
             }
-           
-
         }
 
         // DELETE: api/Items/5

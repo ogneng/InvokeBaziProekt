@@ -17,5 +17,6 @@ namespace WebApiInvoke.Models
         public string Developer { get; set; }
 
         public string Genre { get; set; }
+        public string Pom { get; set; }
     }
 }

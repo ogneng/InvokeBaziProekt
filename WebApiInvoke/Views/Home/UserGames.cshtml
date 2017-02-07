@@ -1,15 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "GetAllGames";
+    ViewBag.Title = "UserGames";
 }
-<style>
-    tbody tr:hover {
-        background-color: deepskyblue;
-    }
-</style>
 
-<h2>GetAllGames</h2>
-<div class="row">
+
+<style>
+    
+</style>
+<div class="row eden">
+    Ve molime najavete se
+</div>
+<div class="row dva">
+
     <div class="col-md-8">
         <table class="table">
             <thead>
@@ -26,7 +28,7 @@
     </div>
 
     <div class="col-md-4">
-        <form class="form-horizontal" id="showw" style="display:none">
+        <form class="form-horizontal">
             <div class="form-group">
                 <label for="gameName" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
@@ -84,8 +86,19 @@
 
 
 
-@section scripts{ 
-        <script>
+@section scripts{
+    <script>
+
+        $(function () {
+            if (localStorage.getItem('ID') == "" && localStorage.getItem('UserName') == "") {
+                $(".eden").show();
+                $(".dva").hide();
+            } else {
+                $(".eden").hide();
+                $(".dva").show();
+            }            
+            
+        });
 
             $(function () {
                 $.get("/api/Games", function (data) {
@@ -108,29 +121,11 @@
                         tableBody.append(tr);
 
                     });
-                    addRowHandlers();
-                });
-
-                $.get("/api/Admins", function (data) {
-                    console.log(data);
-
-                    var currentUserName = localStorage.getItem('UserName');
-
-                    $.each(data, function (index, value) {
-                        if (currentUserName == value.AdminUserName) {
-                            $("#showw").show();
-                        }                   
-                        
-
-                    });
 
                 });
-
-
 
 
                 $("#addGame").on("click", function () {
-                    console.log("asd");
                     var game = {};
                     game.Name = $("#gameName").val();
                     game.Description = $("#gameDesc").val();
@@ -146,54 +141,9 @@
                     });
 
                 })
-
-                $.get("/api/Games/" + id, function (data) {
-                    console.log(data);
-
-                    var tableBody = $("#tableBody");
-
-                    $.each(data, function (index, value) {
-                        var tr = $("<tr></tr>");
-
-                        var td = $("<td >" + value.Name + " </td>");
-                        tr.append(td);
-
-                        td = $("<td >" + value.Description + " </td>");
-                        tr.append(td);
-
-                        td = $("<td >" + value.Price + " </td>");
-                        tr.append(td);
-
-                        tableBody.append(tr);
-
-                    });
-                    addRowHandlers();
-                });
-
-            function addRowHandlers() {
-                var table = document.getElementById("tableBody");
-                var rows = table.getElementsByTagName("tr");
-                for (i = 0; i < rows.length; i++) {
-                    var currentRow = table.rows[i];
-                    var createClickHandler =
-                        function (row) {
-                            return function () {
-                                var cell = row.getElementsByTagName("td")[0];
-                                var id = cell.innerHTML;
-                                window.location = "http://localhost:53301/Home/Game/" + id;
-
-                            };
-                        };
-
-                    currentRow.onclick = createClickHandler(currentRow);
-
-                }
-                console.log("Add ID");
-            }
-
             });
 
-        </script>
+    </script>
 
 }
 

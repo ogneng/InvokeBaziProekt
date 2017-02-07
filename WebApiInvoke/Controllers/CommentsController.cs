@@ -31,7 +31,7 @@ namespace WebApiInvoke.Controllers
                         while (reader.Read())
                         {
                             Comments com = new Comments();
-                            com.UserID = reader.GetInt64(0);
+                            com.CommentID = reader.GetInt64(0);
                             com.CommentContent = reader.GetString(1);
                             com.CommentDateTime = (DateTime)reader.GetDateTime(2);
                             com.UserID = reader.GetInt64(3);
@@ -46,9 +46,37 @@ namespace WebApiInvoke.Controllers
         }
 
         // GET: api/Comments/5
-        public string Get(int id)
+        public List<Comments> Get(string id)
         {
-            return "value";
+            List<Comments> pomList = new List<Comments>();
+
+            using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
+            {
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = $"SELECT * from invoke.comments  where comments.topicsid = {id}";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            Comments com = new Comments();
+                            com.UserID = reader.GetInt64(0);
+                            com.CommentContent = reader.GetString(1);
+                            com.CommentDateTime = (DateTime)reader.GetDateTime(2);
+                            com.UserID = reader.GetInt64(3);
+                            com.TopicID = reader.GetInt64(4);
+                            pomList.Add(com);
+                        }
+
+                    }
+                }
+            }
+            return pomList;
         }
 
         // POST: api/Comments
@@ -63,12 +91,29 @@ namespace WebApiInvoke.Controllers
                     cmd.Connection = conn;
 
                     // Insert some data
+                    if (com.Pom == "add") {
 
-                    cmd.CommandText = "INSERT INTO invoke.comments " +
-                                "(commentscontent,commentsdatewithtime) " +
-                           $"VALUES('{com.CommentContent}','NOW()');";
+                        cmd.CommandText = "INSERT INTO invoke.comments " +
+                                    "(commentscontent,commentsdatewithtime,usersid,topicsid) " +
+                               $"VALUES('{com.CommentContent}','NOW()','{com.UserID}','{com.TopicID}');";
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+
+                    } else if (com.Pom == "edit") {
+
+
+                        cmd.CommandText = "UPDATE invoke.comments " +
+                                 $"SET commentscontent = '{com.newContent}', commentsdatewithtime='NOW()' " +
+                                 $"WHERE usersid = {com.UserID} and topicsid = {com.TopicID} and commentscontent = '{com.CommentContent}' ; ";
+                        cmd.ExecuteNonQuery();
+                        
+
+                    }
+                    else if (com.Pom == "delete") {
+                        cmd.CommandText = "DELETE FROM invoke.comments " +
+                                    $"WHERE usersid = {com.UserID} and topicsid = {com.TopicID} and commentscontent = '{com.CommentContent}' ; ";
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
                 return Ok("Added comment");
