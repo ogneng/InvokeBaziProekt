@@ -202,42 +202,35 @@ namespace WebApiInvoke.Controllers
         }
 
         // POST: api/Games
-        //public IHttpActionResult Post(Game igra)
-        //{
-        //    using (var client = new SshClient("194.149.136.118", 22, "tunnelvezhbi", "tuneliranje!"))
-        //    {
-        //        client.Connect();
+       public IHttpActionResult Post(Game igra)
+        {
+            // using (var conn = new NpgsqlConnection("Host = localhost; Port = 5432; Username = postgres; Database = invokeTest; "))
+            using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
 
-        //        var port = new ForwardedPortLocal("localhost", 5555, "localhost", 5432); //ova trebase obratno da bidat i dr porta ne e vazno koja porta. da se vnimava da ne e start localhost baza i tamu baza na ista porta
-        //        client.AddForwardedPort(port);
+                    // Insert some data
 
-        //        port.Start();
-        //        // using (var conn = new NpgsqlConnection("Host = localhost; Port = 5432; Username = postgres; Database = invokeTest; "))
-        //        using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
-        //        {
-        //            conn.Open();
-        //            using (var cmd = new NpgsqlCommand())
-        //            {
-        //                cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO invoke.games " +
+                                    "(gamesname,gamesdescription,gamesprice,gamesreleasedate,gamesdeveloper,gamesgenre) " +
+                               $"VALUES('{igra.Name}','{igra.Description}',{igra.Price},'{igra.Date}','{igra.Developer}','{igra.Genre}');";
 
-        //                // Insert some data
 
-        //                cmd.CommandText = "INSERT INTO public.games " +
-        //                            "(gamesname,gamesdescription,gamesprice,gamesreleasedate,gamesdeveloper,gamesgenre) " +
-        //                       $"VALUES('{igra.Name}','{igra.Description}',{igra.Price},'{igra.Date}','{igra.Developer}','{igra.Genre}');";
+                    cmd.ExecuteNonQuery();
+                }
 
-        //                cmd.ExecuteNonQuery();
-        //            }
-        //            port.Stop();
-        //            client.Disconnect();
-        //            return Ok("Added game");
-        //        }
+                return Ok("Added game");
+            }
+        }
 
-        //    }
-        //}
+        
+                       
         // PUT: api/Games/5
 
-        public IHttpActionResult Post(Game igra)
+      /*  public IHttpActionResult Post(Game igra)
         {
                 // using (var conn = new NpgsqlConnection("Host = localhost; Port = 5432; Username = postgres; Database = invokeTest; "))
                 using (var conn = new NpgsqlConnection("Host = localhost; Port = 5555; Username = db_201617z_va_proekt_invoke_mk_owner; Password = invoke_finki; Database = db_201617z_va_proekt_invoke_mk"))
@@ -257,7 +250,7 @@ namespace WebApiInvoke.Controllers
    
                     return Ok("Added game");
                 }
-           }
+           }*/
         
         public void Put(int id, [FromBody]string value)
         {

@@ -5,6 +5,30 @@
     }
 </style>
 
+<style>
+    .korisnik {
+        width: 100%;
+        position: relative;
+        float: right;
+    }
+
+    .kor {
+        position: relative;
+        float: right;
+    }
+</style>
+
+<div class="korisnik">
+    <div class="kor well">
+        <div>
+            <p id="usernow" style="float:left"></p>
+            &nbsp
+            &nbsp
+            <button type="button" id="logout" class="btn btn-success" style="display:none;float:right">Log out</button>
+        </div>
+        <button type="button" id="l" class="btn btn-success" style="display:none">Log in</button>
+    </div>
+</div>
 
 <div class="jumbotron">
     <h1> WELCOME TO INVOKE</h1>
@@ -62,3 +86,51 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+
+        $(function () {
+
+            var currentUserName = localStorage.getItem('UserName');
+            // $.get("/api/LogIn?username=" + currentUserName, function (data) {
+            $.get("/api/LogIn/" + currentUserName, function (data) {
+                console.log(data);
+                
+                $.each(data, function (index, value) {
+                   
+
+
+                    localStorage.setItem('ID', value.UserID);
+
+                  
+
+                });
+
+            });
+
+            if (localStorage.getItem('UserName') != "") {
+                $("#usernow").html("Welcome  " + localStorage.getItem('UserName'));
+                $("#logout").show();
+                $("#first").hide();
+            } else {
+                $("#l").show();
+            }
+
+            $("#l").click(function () {
+                window.location = "http://localhost:53301/Home/LogIn";
+            });
+
+            $("#logout").click(function () {
+                localStorage.setItem('UserName', "");
+                localStorage.setItem('ID', "");
+                window.location = "http://localhost:53301/Home/LogIn";
+            });
+
+
+
+
+
+        });
+</script>
+
+}

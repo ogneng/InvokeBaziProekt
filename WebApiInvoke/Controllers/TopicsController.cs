@@ -97,8 +97,8 @@ namespace WebApiInvoke.Controllers
                     // Insert some data
 
                     cmd.CommandText = "INSERT INTO invoke.topics " +
-                                "(topicsname,topicsdescription,topicsdatewithtime) " +
-                           $"VALUES('{topic.TopicName}','{topic.TopicDescription}','{topic.TopicDateTime}');";
+                                "(topicsname,topicsdescription,topicsdatewithtime,usersid,forumsid) " +
+                           $"VALUES('{topic.TopicName}','{topic.TopicDescription}','NOW()',{topic.UserID},{topic.ForumID});";
 
                     cmd.ExecuteNonQuery();
                 }

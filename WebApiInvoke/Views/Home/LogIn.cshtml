@@ -1,24 +1,24 @@
 ﻿@{
-    ViewBag.Title = "LogIn"; 
+    ViewBag.Title = "LogIn";
 }
 <style>
     .korisnik {
-        width:100%;
+        width: 100%;
+        position: relative;
+        float: right;
+    }
+
+    .kor {
+        position: relative;
+        float: right;
     }
 </style>
 
-<div class="korisnik">
-    <div>
-        <p id="usernow"></p>
-        <button type="button" id="logout" class="btn btn-success" style="display:none">Log out</button>
-        <button type="button" id="l" class="btn btn-success" style="display:none">Log in</button>
-    </div>
- 
-</div>
+
 
 <br>
 <div id="first">
-    <form action="" method="post"">
+    <form action="" method="post" ">
         <input type="text" id="userName" placeholder="Username" />
         <br>
         <input type="password" id="userPassword" placeholder="Password" />
@@ -45,8 +45,8 @@
 </div>
 
 
-    @section scripts {
-        <script>
+@section scripts {
+    <script>
             $(document).ready(function () {
                 if (localStorage.getItem('UserName') != "") {
                     $("#usernow").html("Welcome  " + localStorage.getItem('UserName'));
@@ -76,7 +76,7 @@
                         console.log(data);
                         localStorage.setItem('UserName', data.UserName);
                         console.log(localStorage.getItem('UserName'));
-                        location.reload();
+                        window.location = "http://localhost:53301/Home";
                     });
 
 
@@ -132,5 +132,5 @@
             });
 
 
-        </script>
-    }
+    </script>
+}
