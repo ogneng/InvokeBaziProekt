@@ -86,12 +86,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="ForumDate" class="col-sm-2 control-label">Date</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="ForumDate" placeholder="Date">
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <label for="gameName" class="col-sm-2 control-label">Game</label>
@@ -264,6 +258,21 @@
             });
 
             $(function () {
+                $("#add").on("click", function () {
+
+                    var forum = {};
+                    forum.ForumName = $("#forumName").val();
+                    forum.GameName = $("#gameName").val();
+                    
+                    console.log(forum);
+
+                    $.post("/api/Forums", forum, function (data) {
+                        console.log(data);
+                        location.reload();
+                    });
+
+                })
+
                 $("#find").on("click", function () {
                     var forum = {};
                     //    forum.ForumName = $("#forumName").val();

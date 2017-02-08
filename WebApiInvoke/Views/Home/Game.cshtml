@@ -170,7 +170,7 @@
 
 
                         if ($("#comfirm").text() == "Comfirm:") {
-                            $.post("/api/Games", game, function (data) {
+                            $.post("/api/BoughtGames", game, function (data) {
                                 console.log(data);
                                 location.reload();
                             });
