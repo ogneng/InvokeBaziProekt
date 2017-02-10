@@ -23,6 +23,7 @@
         <br>
         <input type="password" id="userPassword" placeholder="Password" />
         <input type="button" id="login" value="Sign In" />
+        <input type="button" id="register" value="Register" />
     </form>
 </div>
 
@@ -64,6 +65,10 @@
                     localStorage.setItem('UserName', "");
                     localStorage.setItem('ID', "");
                     window.location = "http://localhost:53301/Home/LogIn";
+                });
+
+                $("#register").click(function () {
+                    window.location = "http://localhost:53301/Home/Register";
                 });
 
                 // on click Sign In Button checks with the remote server that username =='admin' and password == 'password'
